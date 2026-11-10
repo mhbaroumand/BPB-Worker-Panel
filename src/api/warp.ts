@@ -1,6 +1,5 @@
 import { WarpAccount } from '#types/settings';
 import { getWarpAccounts } from '@settings';
-import { generateKeyPairSync } from 'node:crypto';
 
 interface WarpKeys {
     publicKey: string;
@@ -70,6 +69,7 @@ async function fetchAccount(key: WarpKeys): Promise<any> {
 }
 
 async function generateKeyPair(): Promise<WarpKeys> {
+    const { generateKeyPairSync } = await import('node:crypto');
     const { publicKey, privateKey } = generateKeyPairSync('x25519', {
         publicKeyEncoding: { type: 'spki', format: 'der' },
         privateKeyEncoding: { type: 'pkcs8', format: 'der' }
